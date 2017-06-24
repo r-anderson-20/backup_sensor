@@ -1,4 +1,4 @@
-from gpiozero import DistanceSensor
+gitfrom gpiozero import DistanceSensor
 from time import sleep
 
 sensor = DistanceSensor(echo = 17, trigger = 4)
