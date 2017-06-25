@@ -1,9 +1,6 @@
 from gpiozero import DistanceSensor
 from time import sleep
 
-sensor = DistanceSensor(echo = 17, trigger = 4)
-
-while True:
-    print(sensor.distance)
-    sleep(1)
-    
+def get_distance(echo_io, trigger_io):
+    sensor = DistanceSensor(echo = echo_io, trigger = trigger_io)
+    return sensor.distance
