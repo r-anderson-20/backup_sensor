@@ -8,12 +8,14 @@ import sys
 import RPi.GPIO
 import time
 
+pin = 22
+
 RPi.GPIO.setmode(RPi.GPIO.BCM)
 RPi.GPIO.setwarnings(False)
-RPi.GPIO.setup(5, RPi.GPIO.IN)
+RPi.GPIO.setup(pin, RPi.GPIO.IN)
 
 state = 0
-pin = 5
+
 
 sensor = DistanceSensor(echo = 17,trigger =4, max_distance=5)
 
@@ -47,9 +49,7 @@ def launch_cam(sensor_io):
     cam.start()
     font_big = pygame.font.Font(None, 100)
     surf = pygame.Surface(size)
-    #cm2 = int(DistanceSensor(echo = 17,trigger =4, max_distance=5)/10)
 
-        #cm = int(print_distance.get_distance(17, 4)/10) #17 = echo, 4 = trigger
     colour = GREEN
     image_loc = (screen_size[0]/2 - size[0]/2, 0) #top center
     running = True
@@ -80,6 +80,9 @@ def launch_cam(sensor_io):
         input_state = RPi.GPIO.input(pin)
         if input_state == False:
             break
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                running = False
     pygame.quit()
     cam.stop()
     print "pygame quit"
